@@ -1,8 +1,6 @@
 # JSLint.tmbundle
 
-JSLint is a strict code quality tool by Douglas Crockford. This bundle packages it for use with TextMate.
-
-    http://jslint.com/
+[JSLint](http://jslint.com) is a strict code quality tool by Douglas Crockford. This bundle packages it for use with TextMate.
 
 It uses Safari's JavaScript engine, so there's nothing extra to install.
 
@@ -10,22 +8,24 @@ It uses Safari's JavaScript engine, so there's nothing extra to install.
 
 Clone this repository to your TextMate Bundles directory.
 
-    cd ~/Library/Application\ Support/TextMate/Bundles
-    git clone git://github.com/topfunky/JSLint.tmbundle.git
+    cd ~/Library/Application\ Support/TextMate/Bundles && git clone git://github.com/topfunky/JSLint.tmbundle.git
 
 Restart TextMate (or use Bundles -> Bundle Editor -> Reload Bundles).
 
 # Usage
 
-Run Bundles > JSLint > Verify with a JavaScript file open.
+* Open a JavaScript file. 
+* Run the Bundles > JSLint > Verify menu item.
 
-Or, use TextMate's bundle editor to assign a shortcut key.
+# Warning
+
+JSLint is both strict and opinionated. Consult the JSLint site to generate a configuration of options that work for your coding style.
 
 # Hat Tip
 
 Thanks to tips and snippets from:
 
-* http://www.phpied.com/jslint-on-mac-textmate/
-* http://wonko.com/post/pretty-jslint-output-for-textmate
-* http://tech.groups.yahoo.com/group/jslint_com/message/714
+* [JSLint on Mac](http://www.phpied.com/jslint-on-mac-textmate/)
+* [Pretty JSLint Output](http://wonko.com/post/pretty-jslint-output-for-textmate)
+* [JSLint and JavaScriptCore](http://tech.groups.yahoo.com/group/jslint_com/message/714)
 
