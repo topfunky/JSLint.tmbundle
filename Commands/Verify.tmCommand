@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+
+require 'cgi'
+
+lint = `/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc "$TM_BUNDLE_SUPPORT/jslint.js" -- "$(cat $TM_FILEPATH)"`
+
+lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?)\n\n)?/m) do 
+  "&lt;p&gt;&lt;strong&gt;#{CGI.escapeHTML($1)}&lt;a href=\"txmt://open?url=file://TM_FILEPATH&amp;line=#{CGI.escapeHTML($2)}\"&gt;#{CGI.escapeHTML($2)}&lt;/a&gt;#{CGI.escapeHTML($3)}&lt;/strong&gt;#{CGI.escapeHTML($3)}" &lt;&lt;
+    ($4 ? "&lt;pre&gt;#{CGI.escapeHTML($4)}&lt;/pre&gt;" : "")
+end
+lint.gsub!(/^(jslint:)(.+?)$/, "&lt;p&gt;&lt;strong&gt;\1&lt;/strong&gt;\2&lt;/p&gt;")
+lint.gsub!(/TM_FILEPATH/, ENV['TM_FILEPATH'])
+
+#lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?)\n\n)?/m) do
+#  "&lt;p&gt;&lt;strong&gt;#{CGI.escapeHTML($1)}&lt;a href=\"txmt://open?url=file://TM_FILEPATH&amp;line=#{CGI.escapeHTML($2)}\"&gt;#{CGI.escapeHTML($2)}&lt;/a&gt;#{CGI.escapeHTML($3)}&lt;/strong&gt;#{CGI.escapeHTML($4)}" &lt;&lt;
+#    ($5 ? "&lt;pre&gt;#{CGI.escapeHTML($5)}&lt;/pre&gt;" : '')
+#end
+
+lint.gsub!(/^(jslint:)(.+?)$/, '&lt;p&gt;&lt;strong&gt;\1&lt;/strong&gt;\2&lt;/p&gt;')
+lint.gsub!(/TM_FILEPATH/, ENV['TM_FILEPATH']) 
+
+print &lt;&lt;HTML
+&lt;!doctype&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style type="text/css"&gt;
+    p { margin-bottom: 0; }
+    pre {
+      background: #f5f5f5;
+      border: 1px solid #cfcfcf;
+      font-size: 12px;
+      margin-top: 2px;
+      padding: 2px 4px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  #{lint}
+&lt;/body&gt;
+&lt;/html&gt;
+HTML</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>name</key>
+	<string>Verify</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>uuid</key>
+	<string>2A7DDA16-57B0-4F6A-B501-2B9AE978E8E0</string>
+</dict>
+</plist>
